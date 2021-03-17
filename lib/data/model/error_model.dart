@@ -1,0 +1,1 @@
+enum AppErrorType { api, network }
