@@ -6,7 +6,7 @@
 </p>
 
 
-Aplicativo desenvolvido para o <a href="https://github.com/kinvoapp/kinvo-mobile-test">teste da vaga de desenvolvedor mobile </a>na kinvo (não participei do processo de seleção)
+Aplicativo desenvolvido para o <a href="https://github.com/kinvoapp/kinvo-mobile-test" target="_blank">teste da vaga de desenvolvedor mobile </a>na kinvo (não participei do processo de seleção)
 ## Status
 - Em desenvolvimento
 ## Tecnologias Utilizadas
