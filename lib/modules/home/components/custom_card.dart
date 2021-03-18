@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
+import '../../../config/ui_pallete.dart';
+import '../../../core/components/custom_chip.dart';
 
 class CustomCard extends StatelessWidget {
   final String assetname;
@@ -83,23 +85,9 @@ class CustomCard extends StatelessWidget {
               ),
               Visibility(
                 visible: label1 == 'Fundos',
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: UiPallete.pallete['cyan'],
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  height: 20,
-                  width: 55,
-                  child: Center(
-                    child: Text(
-                      'Novo',
-                      style: TextStyle(
-                        fontFamily: 'Montserrat',
-                        fontSize: 11,
-                        color: UiPallete.pallete['white'],
-                      ),
-                    ),
-                  ),
+                child: CustomChip(
+                  color: UiPallete.pallete['cyan']!,
+                  label: 'Novo',
                 ),
               )
             ],

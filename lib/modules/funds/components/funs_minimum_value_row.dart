@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
-import 'package:kinvo_mobile_test/data/model/stocks_model.dart';
+import 'package:kinvo_mobile_test/data/model/funds_model.dart';
 
-class MinimumValueRow extends StatelessWidget {
-  final List<Datum> stocksList;
+class FundsMinimumValueRow extends StatelessWidget {
+  final List<Datum> fundsList;
   final int index;
 
-  const MinimumValueRow({
+  const FundsMinimumValueRow({
     Key? key,
-    required this.stocksList,
+    required this.fundsList,
     required this.index,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class MinimumValueRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        top: 10,
+        top: 12,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -28,7 +28,9 @@ class MinimumValueRow extends StatelessWidget {
               fontFamily: 'Montserrat',
               fontSize: 10,
               fontWeight: FontWeight.w500,
-              color: UiPallete.pallete['blue-grey-1'],
+              color: fundsList[index].status == 2
+                  ? Color.fromRGBO(98, 113, 121, 1).withOpacity(0.5)
+                  : UiPallete.pallete['blue-grey-1'],
             ),
           ),
           Text(
@@ -36,13 +38,15 @@ class MinimumValueRow extends StatelessWidget {
               name: "R\$",
               locale: 'pt-br',
             ).format(
-              stocksList[index].minimumValue,
+              fundsList[index].minimumValue,
             ),
             style: TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 12,
               fontWeight: FontWeight.w600,
-              color: UiPallete.pallete['blue-grey-1'],
+              color: fundsList[index].status == 2
+                  ? Color.fromRGBO(98, 113, 121, 1).withOpacity(0.5)
+                  : UiPallete.pallete['blue-grey-1'],
             ),
           ),
         ],

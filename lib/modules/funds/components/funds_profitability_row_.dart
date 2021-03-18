@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
-import 'package:kinvo_mobile_test/data/model/stocks_model.dart';
+import 'package:kinvo_mobile_test/data/model/funds_model.dart';
 
-class StockProfitabilityRow extends StatelessWidget {
-  final List<Datum> stocksList;
+class FundsProfitabilityRow extends StatelessWidget {
+  final List<Datum> fundsList;
   final int index;
 
-  const StockProfitabilityRow({
+  const FundsProfitabilityRow({
     Key? key,
-    required this.stocksList,
+    required this.fundsList,
     required this.index,
   }) : super(key: key);
 
@@ -23,34 +23,44 @@ class StockProfitabilityRow extends StatelessWidget {
             fontFamily: 'Montserrat',
             fontSize: 10,
             fontWeight: FontWeight.w500,
-            color: UiPallete.pallete['blue-grey-1'],
+            color: fundsList[index].status == 2
+                ? Color.fromRGBO(98, 113, 121, 1).withOpacity(0.5)
+                : UiPallete.pallete['blue-grey-1'],
           ),
         ),
         Row(
           children: [
             Icon(
-              stocksList[index].profitability! < 0
+              fundsList[index].profitability < 0
                   ? Icons.arrow_downward_rounded
                   : Icons.arrow_upward_sharp,
               size: 13,
-              color: stocksList[index].profitability! < 0
+              color: fundsList[index].profitability < 0
                   ? UiPallete.pallete['orange']
                   : Colors.green,
             ),
             Text(
-              stocksList[index].profitability.toString() + "%",
+              fundsList[index].profitability.toString() + "%",
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
-                color: stocksList[index].profitability! < 0
-                    ? UiPallete.pallete['orange']
-                    : Colors.green,
+                color: colorsControl(fundsList, index),
               ),
             )
           ],
         )
       ],
     );
+  }
+
+  Color colorsControl(List<Datum> fundsList, int index) {
+    if (fundsList[index].status == 2) {
+      return Color.fromRGBO(98, 113, 121, 1).withOpacity(0.5);
+    } else if (fundsList[index].profitability < 0) {
+      return UiPallete.pallete['orange'];
+    } else {
+      return UiPallete.pallete['green'];
+    }
   }
 }

@@ -3,24 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/components/custom_appbar.dart';
+import 'package:kinvo_mobile_test/core/components/custom_divider.dart';
 import 'package:kinvo_mobile_test/core/components/custom_error_screen.dart';
-import 'package:kinvo_mobile_test/data/model/stocks_model.dart';
-import 'package:kinvo_mobile_test/data/repositories/stocks_repository.dart';
+import 'package:kinvo_mobile_test/data/model/funds_model.dart';
+import 'package:kinvo_mobile_test/data/repositories/funds_repository.dart';
+import 'package:kinvo_mobile_test/modules/funds/funds_controller.dart';
 import 'package:kinvo_mobile_test/modules/home/home_screen.dart';
-import 'package:kinvo_mobile_test/modules/stocks/stocks_controller.dart';
-import '../../core/components/custom_divider.dart';
-import 'components/stock_minimum_value_row.dart';
-import 'components/profitability_row.dart';
-import 'components/stocks_name_row.dart';
+import 'components/custom_rating_bar.dart';
+import 'components/funds_name_row.dart';
+import 'components/funds_profitability_row_.dart';
+import 'components/funs_minimum_value_row.dart';
 
-class StocksScreen extends StatelessWidget {
-  static const String PAGE_ROUTE = "/stocks";
-  final controller = Get.put(StocksController(StocksRepository(Dio())))!;
-
+class FundsScreen extends StatelessWidget {
+  static const String PAGE_ROUTE = "/funds";
+  final controller = Get.put(FundsController(FundsRepository(Dio())))!;
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -58,7 +57,7 @@ class StocksScreen extends StatelessWidget {
                         ),
                       ),
                       CustomAppBar(
-                        label: 'Ações',
+                        label: 'Fundos',
                       )
                     ],
                   ),
@@ -78,12 +77,12 @@ class StocksScreen extends StatelessWidget {
                     ),
                     child: controller.obx(
                       (state) {
-                        final StocksrModel stock = state;
+                        final FundsModel funds = state;
                         return RefreshIndicator(
-                          onRefresh: () => controller.fetchStocks(),
+                          onRefresh: () => controller.fetchFunds(),
                           child: ListView.builder(
-                            itemCount: stock.data!.length,
-                            itemBuilder: (context, index) {
+                            itemCount: 5,
+                            itemBuilder: (_, index) {
                               return Container(
                                 margin: EdgeInsets.only(
                                   bottom: 20,
@@ -95,44 +94,53 @@ class StocksScreen extends StatelessWidget {
                                   border: Border.all(
                                     color: Colors.blueGrey[100]!,
                                   ),
-                                  color: UiPallete.pallete['white'],
+                                  color: funds.data[index].status == 2
+                                      ? UiPallete.pallete['white-3']
+                                      : UiPallete.pallete['white'],
                                 ),
-                                height: 160,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 17,
-                                    top: 4,
-                                    right: 6,
+                                height: 185,
+                                width: 185,
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 16,
                                   ),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      StocksNameRow(
+                                      FundsNameRow(
                                         controller: controller,
+                                        fundsList: funds.data,
                                         index: index,
-                                        stocksList: stock.data!,
                                       ),
                                       Text(
-                                        stock.data![index].ticker!,
+                                        funds.data[index].type,
                                         style: TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontSize: 12,
                                           fontWeight: FontWeight.w600,
-                                          color:
-                                              UiPallete.pallete['blue-grey-1'],
+                                          color: funds.data[index].status == 2
+                                              ? Color.fromRGBO(98, 113, 121, 1)
+                                                  .withOpacity(0.5)
+                                              : UiPallete
+                                                  .pallete['blue-grey-1'],
                                         ),
                                       ),
                                       CustomDivider(),
-                                      StockMinimumValueRow(
+                                      CustomRatingBar(
+                                        funds: funds.data,
                                         index: index,
-                                        stocksList: stock.data!,
+                                      ),
+                                      FundsMinimumValueRow(
+                                        index: index,
+                                        fundsList: funds.data,
                                       ),
                                       SizedBox(
                                         height: size.height * 0.02,
                                       ),
-                                      StockProfitabilityRow(
-                                        stocksList: stock.data!,
+                                      FundsProfitabilityRow(
+                                        fundsList: funds.data,
                                         index: index,
                                       )
                                     ],
@@ -144,7 +152,7 @@ class StocksScreen extends StatelessWidget {
                         );
                       },
                       onLoading: Center(child: CircularProgressIndicator()),
-                      onError: (error) => Column(
+                      onError: (_) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
@@ -178,7 +186,7 @@ class StocksScreen extends StatelessWidget {
                               ),
                               primary: UiPallete.pallete['text-color'],
                             ),
-                            onPressed: () => controller.fetchStocks(),
+                            onPressed: () => controller.fetchFunds(),
                             child: Text(
                               'TENTAR NOVAMENTE',
                               style: TextStyle(

@@ -12,14 +12,13 @@ class StocksRepository implements IStocksRepository {
 
   @override
   Future<StocksrModel> getStocks() async {
-    final response = await _dio.get(
-      apiBody + 'stocks',
-    );
-
     try {
+      final response = await _dio.get(
+        apiBody + 'stocks',
+      );
       return StocksrModel.fromJson(response.data);
     } catch (e) {
-      print('Error in repository: $e');
+      print('Error in StocksRepository: $e');
       rethrow;
     }
   }

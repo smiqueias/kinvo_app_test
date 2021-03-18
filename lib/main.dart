@@ -3,6 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/utils/constants/hive_boxs.dart';
 import 'package:kinvo_mobile_test/modules/home/home_screen.dart';
+import 'modules/funds/funds_screen.dart';
 import 'modules/stocks/stocks_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -24,6 +25,7 @@ class Main extends StatelessWidget {
       routes: {
         HomeScreen.PAGE_ROUTE: (_) => HomeScreen(),
         StocksScreen.PAGE_ROUTE: (_) => StocksScreen(),
+        FundsScreen.PAGE_ROUTE: (_) => FundsScreen(),
       },
     );
   }

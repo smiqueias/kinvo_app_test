@@ -1,25 +1,26 @@
 import 'dart:io';
-import 'package:get/get.dart';
-import 'package:kinvo_mobile_test/data/interfaces/i_stocks_repository.dart';
 
-class StocksController extends GetxController with StateMixin {
+import 'package:get/get.dart';
+import 'package:kinvo_mobile_test/data/interfaces/i_funds_repository.dart';
+
+class FundsController extends GetxController with StateMixin {
+  final IFundsRepository _repository;
+
+  FundsController(
+    this._repository,
+  );
+
   @override
   void onInit() {
     super.onInit();
-    fetchStocks();
+    fetchFunds();
   }
 
-  final IStocksRepository _repository;
-
-  //Rx<StocksrModel> stocksModel = StocksrModel().obs;
-
-  StocksController(this._repository);
-
-  Future<void> fetchStocks() async {
+  Future<void> fetchFunds() async {
     change([], status: RxStatus.loading());
     try {
-      final stocks = await _repository.getStocks();
-      change(stocks, status: RxStatus.success());
+      final funds = await _repository.getFunds();
+      change(funds, status: RxStatus.success());
     } on SocketException catch (e) {
       print('Error in StocksController => $e');
       change(

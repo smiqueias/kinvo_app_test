@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/components/custom_appbar.dart';
+import 'package:kinvo_mobile_test/modules/funds/funds_screen.dart';
 import 'package:kinvo_mobile_test/modules/stocks/stocks_screen.dart';
 import 'components/custom_card.dart';
 
@@ -57,7 +58,10 @@ class HomeScreen extends StatelessWidget {
                           label1: 'Fundos',
                           label2: 'De investimentos',
                           size: size,
-                          onTap: () => print('fundos'),
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            FundsScreen.PAGE_ROUTE,
+                          ),
                         ),
                         Divider(
                           color: Colors.transparent,
