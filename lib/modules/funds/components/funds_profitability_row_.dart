@@ -35,9 +35,7 @@ class FundsProfitabilityRow extends StatelessWidget {
                   ? Icons.arrow_downward_rounded
                   : Icons.arrow_upward_sharp,
               size: 13,
-              color: fundsList[index].profitability < 0
-                  ? UiPallete.pallete['orange']
-                  : Colors.green,
+              color: colorsControl(fundsList, index),
             ),
             Text(
               fundsList[index].profitability.toString() + "%",

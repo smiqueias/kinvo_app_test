@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/components/custom_appbar.dart';
 import 'package:kinvo_mobile_test/modules/funds/funds_screen.dart';
+import 'package:kinvo_mobile_test/modules/pension/pension_screen.dart';
 import 'package:kinvo_mobile_test/modules/stocks/stocks_screen.dart';
 import 'components/custom_card.dart';
 
@@ -20,11 +21,8 @@ class HomeScreen extends StatelessWidget {
           width: size.width,
           child: Column(
             children: [
-              Expanded(
-                flex: 1,
-                child: CustomAppBar(
-                  label: 'Desafio',
-                ),
+              CustomAppBar(
+                label: "Desafio",
               ),
               Expanded(
                 flex: 6,
@@ -71,7 +69,10 @@ class HomeScreen extends StatelessWidget {
                           label1: 'Previdências',
                           label2: 'Privadas',
                           size: size,
-                          onTap: () => print('previdencias'),
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            PensionScreen.PAGE_ROUTE,
+                          ),
                         ),
                       ],
                     ),

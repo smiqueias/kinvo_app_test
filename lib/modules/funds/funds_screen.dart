@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/components/custom_appbar.dart';
 import 'package:kinvo_mobile_test/core/components/custom_divider.dart';
-import 'package:kinvo_mobile_test/core/components/custom_error_screen.dart';
 import 'package:kinvo_mobile_test/data/model/funds_model.dart';
 import 'package:kinvo_mobile_test/data/repositories/funds_repository.dart';
 import 'package:kinvo_mobile_test/modules/funds/funds_controller.dart';
@@ -27,41 +26,8 @@ class FundsScreen extends StatelessWidget {
           width: size.width,
           child: Column(
             children: [
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(
-                          context,
-                          HomeScreen.PAGE_ROUTE,
-                        ),
-                        child: Container(
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: UiPallete.pallete['text-color'],
-                            shape: BoxShape.circle,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(4),
-                            child: Icon(
-                              Icons.keyboard_arrow_left_rounded,
-                              color: UiPallete.pallete['white']!.withOpacity(
-                                0.7,
-                              ),
-                              size: 20,
-                            ),
-                          ),
-                        ),
-                      ),
-                      CustomAppBar(
-                        label: 'Fundos',
-                      )
-                    ],
-                  ),
-                ),
+              CustomAppBar(
+                label: 'Fundos',
               ),
               Expanded(
                 flex: 6,

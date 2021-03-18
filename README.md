@@ -1,16 +1,24 @@
-# kinvo_mobile_test
+# <p align="center"> Kinvo App Test 
 
-A new Flutter project.
+<p align="center">
+<a href="https://www.linkedin.com/in/saulo-nascimento-b6050b1b3/"><img src="https://img.icons8.com/android/24/000000/linkedin.png" alt="linkedin"></a>
+<a href="https://www.instagram.com/smiqueias_/"><img src="https://img.icons8.com/android/24/000000/instagram.png" alt="instagram"></a>
+</p>
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+Aplicativo desenvolvido para teste de uma vaga de desenvolvedor mobile (não participei do processo de seleção)
+## Status
+- Em desenvolvimento
+## Tecnologias Utilizadas
+- Dart
+- Flutter
+- GetX
+- Dio
+## Imagens
+<p float="left">
+<img src="https://i.imgur.com/U7PdiYk.png" alt="Tela do App" width="300"/>
+<img src="https://i.imgur.com/snq5PHi.png" alt="Tela do App" width="300"/>
+<img src="https://i.imgur.com/SIzuMoh.png" alt="Tela do App" width="300"/>
+</p>
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
