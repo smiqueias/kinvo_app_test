@@ -7,7 +7,7 @@
 
 
 Aplicativo desenvolvido para o <a href="https://github.com/kinvoapp/kinvo-mobile-test">teste da vaga de desenvolvedor mobile </a>na kinvo (não participei do processo de seleção)
->>>>>>> 075ab006b2e92afe34f8e606f7c92bbc299aa5f7
+
 ## Status
 - Em desenvolvimento
 ## Tecnologias Utilizadas
