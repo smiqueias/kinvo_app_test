@@ -8,11 +8,7 @@ import 'package:kinvo_mobile_test/core/components/not_found_screen.dart';
 import 'package:kinvo_mobile_test/data/model/pension_model.dart';
 import 'package:kinvo_mobile_test/data/repositories/pension_repository.dart';
 import 'package:kinvo_mobile_test/modules/pension/pension_controller.dart';
-import 'components/pension_minimum_value_row.dart';
-import 'components/pension_name_row.dart';
-import 'components/pension_profitability_row.dart';
-import 'components/pension_redemption_term_row.dart';
-import 'components/pension_tax_row.dart';
+import 'components/pension_list.dart';
 
 class PensionScreen extends StatefulWidget {
   static const String PAGE_ROUTE = "/pension";
@@ -36,7 +32,9 @@ class _PensionScreenState extends State<PensionScreen> {
     List<Widget> chips = [];
     filters.forEach((filter) {
       chips.add(Container(
-        padding: const EdgeInsets.all(12.0),
+        margin: EdgeInsets.symmetric(
+          vertical: 8,
+        ),
         child: ChoiceChip(
           backgroundColor: UiPallete.pallete['white'],
           label: Text(filter),
@@ -114,6 +112,14 @@ class _PensionScreenState extends State<PensionScreen> {
                                 final PensionModel pension = state;
 
                                 if (selectedFilter.contains('SEM TAXA') &&
+                                    selectedFilter.contains('R\$ 100,00') &&
+                                    selectedFilter.contains('D+1')) {
+                                  return _buildListWithAllFilters(
+                                    pension,
+                                    size,
+                                  );
+                                } else if (selectedFilter
+                                        .contains('SEM TAXA') &&
                                     selectedFilter.contains('R\$ 100,00')) {
                                   return _buildListWithMinimumValueOneHundredAndNoFeeFilters(
                                     pension,
@@ -240,80 +246,11 @@ class _PensionScreenState extends State<PensionScreen> {
   }
 
   Widget _buildListWithoutFilters(PensionModel pension, Size size) {
-    return ListView.builder(
-      itemCount: pension.data.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pension.data,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pension.data,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pension.data,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pension.data,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pension.data,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pension.data,
     );
   }
 
@@ -326,80 +263,11 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 
@@ -413,80 +281,11 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 
@@ -499,80 +298,11 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 
@@ -587,80 +317,11 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 
@@ -675,80 +336,11 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 
@@ -764,80 +356,32 @@ class _PensionScreenState extends State<PensionScreen> {
       return NotFoundScreen();
     }
 
-    return ListView.builder(
-      itemCount: pensionListFiltered.length,
-      itemBuilder: (_, index) {
-        return Container(
-          margin: EdgeInsets.only(
-            bottom: 20,
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-            border: Border.all(
-              color: Colors.blueGrey[100]!,
-            ),
-            color: UiPallete.pallete['white'],
-          ),
-          height: 205,
-          width: 185,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 16,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                PensionNameRow(
-                  controller: controller,
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.003,
-                ),
-                Text(
-                  pension.data[index].type.toUpperCase(),
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: UiPallete.pallete['blue-grey-1'],
-                  ),
-                ),
-                CustomDivider(),
-                PensionMinimumValueRow(
-                  pensionList: pensionListFiltered,
-                  index: index,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionTaxRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionRedemptionTermRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-                SizedBox(
-                  height: size.height * 0.001,
-                ),
-                PensionProfitabilityRow(
-                  index: index,
-                  pensionList: pensionListFiltered,
-                ),
-              ],
-            ),
-          ),
-        );
-      },
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
+    );
+  }
+
+  Widget _buildListWithAllFilters(PensionModel pension, Size size) {
+    List<Datum> pensionListFiltered = pension.data
+        .where((pension) =>
+            pension.redemptionTerm == 1 &&
+            pension.minimumValue <= 100 &&
+            pension.tax == 0)
+        .toList();
+    pensionListFiltered.sort((a, b) => a.name.compareTo(b.name));
+
+    if (pensionListFiltered.length == 0) {
+      return NotFoundScreen();
+    }
+
+    return PensionList(
+      controller: controller,
+      pension: pension,
+      size: size,
+      pensionList: pensionListFiltered,
     );
   }
 }
