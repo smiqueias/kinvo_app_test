@@ -7,11 +7,10 @@ import 'package:kinvo_mobile_test/core/components/custom_divider.dart';
 import 'package:kinvo_mobile_test/data/model/funds_model.dart';
 import 'package:kinvo_mobile_test/data/repositories/funds_repository.dart';
 import 'package:kinvo_mobile_test/modules/funds/funds_controller.dart';
-import 'package:kinvo_mobile_test/modules/home/home_screen.dart';
 import 'components/custom_rating_bar.dart';
 import 'components/funds_name_row.dart';
 import 'components/funds_profitability_row_.dart';
-import 'components/funs_minimum_value_row.dart';
+import 'components/funds_minimum_value_row.dart';
 
 class FundsScreen extends StatelessWidget {
   static const String PAGE_ROUTE = "/funds";

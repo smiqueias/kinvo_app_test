@@ -21,7 +21,6 @@ class FundsNameRow extends StatelessWidget {
   Widget build(BuildContext context) {
     fundsList.sort((a, b) => a.name.compareTo(b.name));
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           fundsList[index].name.intelliTrim(),

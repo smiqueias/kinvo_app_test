@@ -5,7 +5,6 @@ import 'package:kinvo_mobile_test/config/ui_pallete.dart';
 import 'package:kinvo_mobile_test/core/components/custom_appbar.dart';
 import 'package:kinvo_mobile_test/data/model/stocks_model.dart';
 import 'package:kinvo_mobile_test/data/repositories/stocks_repository.dart';
-import 'package:kinvo_mobile_test/modules/home/home_screen.dart';
 import 'package:kinvo_mobile_test/modules/stocks/stocks_controller.dart';
 import '../../core/components/custom_divider.dart';
 import 'components/stock_minimum_value_row.dart';
