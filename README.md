@@ -21,4 +21,9 @@ Aplicativo desenvolvido para teste de uma vaga de desenvolvedor mobile (não par
 <img src="https://i.imgur.com/SIzuMoh.png" alt="Tela do App" width="300"/>
 </p>
 
+## Demo
+<p float="left">
+<img src="https://media1.giphy.com/media/URNLEmGCelytIKh5QN/giphy.gif" alt="Demo do App" width="300"/>
+</p>
+
 
