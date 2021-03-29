@@ -14,16 +14,15 @@ Aplicativo desenvolvido para teste de uma vaga de desenvolvedor mobile (não par
 - Flutter
 - GetX
 - Dio
-## Imagens
-<p float="left">
-<img src="https://i.imgur.com/U7PdiYk.png" alt="Tela do App" width="300"/>
-<img src="https://i.imgur.com/snq5PHi.png" alt="Tela do App" width="300"/>
-<img src="https://i.imgur.com/SIzuMoh.png" alt="Tela do App" width="300"/>
-</p>
 
 ## Demo
 <p float="left">
 <img src="https://media1.giphy.com/media/URNLEmGCelytIKh5QN/giphy.gif" alt="Demo do App" width="300"/>
 </p>
 
-
+## Imagens
+<p float="left">
+<img src="https://i.imgur.com/U7PdiYk.png" alt="Tela do App" width="300"/>
+<img src="https://i.imgur.com/snq5PHi.png" alt="Tela do App" width="300"/>
+<img src="https://i.imgur.com/SIzuMoh.png" alt="Tela do App" width="300"/>
+</p>
