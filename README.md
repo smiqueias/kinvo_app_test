@@ -7,8 +7,6 @@
 
 
 Aplicativo desenvolvido para teste de uma vaga de desenvolvedor mobile (não participei do processo de seleção)
-## Status
-- Em desenvolvimento
 ## Tecnologias Utilizadas
 - Dart
 - Flutter
